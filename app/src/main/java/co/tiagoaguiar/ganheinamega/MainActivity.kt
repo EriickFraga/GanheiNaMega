@@ -24,26 +24,30 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun numberGenerator(text: String, txtResult: TextView) {
-       if(text.isNotEmpty()) {
-           val qtd = text.toInt()
-           if(qtd >= 6 && qtd <= 15) {
+        // VERIFICA SE O TEXT VIEW ESTA VAZIO
+        if (text.isEmpty()) {
+            Toast.makeText(this, "Informe um número entre 6 e 15", Toast.LENGTH_LONG).show()
+            return
+        }
+        // VALIDA SE O TEXT VIEW ESTA ENTRE 6 E 15
+        val qtd = text.toInt()
+        if (qtd < 6 || qtd > 15) {
+            Toast.makeText(this, "Informe um número entre 6 e 15", Toast.LENGTH_LONG).show()
+            return
+        }
 
-               val numbers = mutableSetOf<Int>()
-               val random = Random()
+        val numbers = mutableSetOf<Int>()
+        val random = Random()
 
-               while (true) {
-                   val number = random.nextInt(60)
-                   numbers.add(number + 1)
-                   if(numbers.size == qtd) {
-                       break
-                   }
-               }
-               txtResult.text = numbers.joinToString(" - ")
-           } else {
-               Toast.makeText(this, "Informe um número entre 6 e 15", Toast.LENGTH_LONG).show()
-           }
-       } else {
-           Toast.makeText(this, "Informe um número entre 6 e 15", Toast.LENGTH_LONG).show()
-       }
+        while (true) {
+            val number = random.nextInt(60)
+            numbers.add(number + 1)
+            if (numbers.size == qtd) {
+                break
+            }
+        }
+
+        val sortedNumbers = numbers.sorted()
+        txtResult.text = sortedNumbers.joinToString(" - ")
     }
 }
